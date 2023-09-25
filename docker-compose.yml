@@ -1,0 +1,22 @@
+version: '2.0'
+
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+  jupyter_notebook:
+    image: jupyter/scipy-notebook
+    ports:
+      - "8888:8888"
+    depends_on:
+      - redis
+    networks:
+      - app-network
+
+networks:
+  app-network:
+   driver: bridge
